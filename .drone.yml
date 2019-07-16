@@ -11,3 +11,18 @@ pipeline:
     when:
       branch: [master]
       event: push
+
+  dispatch:
+    environment:
+      - GOPATH=/drone
+    image: nytimes/drone-gae
+    action: update_dispatch
+    project: jprbnsn
+    dispatch_file: dispatch.yaml
+    version: "${DRONE_COMMIT}"
+    secrets:
+      - source: google_credentials
+        target: gae_credentials
+    when:
+      event: push
+      branch: master
