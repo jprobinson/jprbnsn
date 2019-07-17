@@ -1,5 +1,5 @@
 dispatch:
-- url: "jprbnsn/*"
+- url: "jprbnsn.com/*"
   service: default
-- url: "countdown.jprbnsn/*"
+- url: "countdown.jprbnsn.com/*"
   service: countdown
