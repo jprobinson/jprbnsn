@@ -5,5 +5,7 @@ dispatch:
   service: default
 - url: "www.jprbnsn.com/*"
   service: default
+- url: "join.jprbnsn.com/*"
+  service: join
 - url: "*.jprbnsn.com/*"
   service: countdown
