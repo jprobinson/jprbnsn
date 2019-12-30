@@ -6,6 +6,11 @@ name: default
 steps:
 - name: deploy
   image: nytimes/drone-gae:latest
+  when:
+    branch:
+    - master
+    event:
+    - push
   settings:
     action: deploy
     project: jprbnsn
@@ -14,12 +19,14 @@ steps:
   environment:
     GAE_CREDENTIALS:
       from_secret: google_credentials
-  when:
-    branch:
-    - master
 
 - name: dispatch:
   image: nytimes/drone-gae
+  when:
+    branch:
+    - master
+    event:
+    - push
   settings:
     action: update_dispatch
     project: jprbnsn
@@ -28,6 +35,4 @@ steps:
   environment:
     GAE_CREDENTIALS:
       from_secret: google_credentials
-  when:
-    branch:
-    - master
+
