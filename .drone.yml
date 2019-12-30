@@ -15,7 +15,10 @@ steps:
     GAE_CREDENTIALS:
       from_secret: google_credentials
   when:
-    branch: [master]
+    branch:
+    - master
+    event:
+    - push
 
 - name: dispatch:
   image: nytimes/drone-gae
@@ -28,4 +31,8 @@ steps:
     GAE_CREDENTIALS:
       from_secret: google_credentials
   when:
-    branch: master
+    branch:
+    - master
+    event:
+    - push
+
