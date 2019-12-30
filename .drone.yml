@@ -1,28 +1,33 @@
-pipeline:
-  deploy:
-    image: nytimes/drone-gae:latest
+---
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: deploy
+  image: nytimes/drone-gae:latest
+  settings:
     action: deploy
     project: jprbnsn
     version: "${DRONE_COMMIT}"
     max_versions: 2
-    secrets:
-      - source: google_credentials
-        target: GAE_CREDENTIALS
-    when:
-      branch: [master]
-      event: push
+  environment:
+    GAE_CREDENTIALS:
+      from_secret: google_credentials
+  when:
+    branch: [master]
+    event: push
 
-  dispatch:
-    environment:
-      - GOPATH=/drone
-    image: nytimes/drone-gae
+- name: dispatch:
+  image: nytimes/drone-gae
+  settings:
     action: update_dispatch
     project: jprbnsn
     dispatch_file: dispatch.yaml
     version: "${DRONE_COMMIT}"
-    secrets:
-      - source: google_credentials
-        target: gae_credentials
-    when:
-      event: push
-      branch: master
+  environment:
+    GAE_CREDENTIALS:
+      from_secret: google_credentials
+  when:
+    event: push
+    branch: master
