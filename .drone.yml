@@ -17,8 +17,6 @@ steps:
   when:
     branch:
     - master
-    event:
-    - push
 
 - name: dispatch:
   image: nytimes/drone-gae
@@ -33,6 +31,3 @@ steps:
   when:
     branch:
     - master
-    event:
-    - push
-
